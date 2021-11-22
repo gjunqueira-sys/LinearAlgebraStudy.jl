@@ -2,8 +2,12 @@ module LinearAlgebraStudy
 using Symbolics
 using SymbolicUtils
 using Plots
+using LinearAlgebra
 
-export drawVector, dot
+
+export drawVector, testVectorsIndependance
+
+
 
 """
     drawVector(V, origin = [0,0])
@@ -33,42 +37,33 @@ function drawVector(V, origin = [0,0], xlim=5, ylim=5)
 
 end
 
-
-
-
-
-
 """
-    dot(V₁::Vector, V₂::Vector)
-    Computes the dot product of two vectors.
+testVectorsIndependance(kwargs...)
+    This function will take a variable number of vectors and test if they are independant.
+    A Matrix "M" will be created with the vectors as columns.
+    The rank of the Matrix will then be calculated.
+    If the rank is equal to the number of vectors, then the vectors are independant.
 
     # Parameters
-    V₁ : Vector
-        The first vector.
-    V₂ : Vector
-        The second vector.
+    kwargs : Vectors
+        The vectors to be tested.
 
     # Returns
-    dot : 
-        The dot product of the two vectors.
-
-    # Example
-   ```julia
-    using LinearAlgebraStudy
-    V1 = Vector([1,2])
-    V2 = Vector([3,4])
-    dot(V1, V2)
-    ```
+    result : Bool
+        True if the vectors are independant, false otherwise.
 
 """
-function dot(V₁::Vector, V₂::Vector)
-    if length(V₁) == length(V₂)
-        return V₁'*V₂
-    else error("Vectors must be of the same length")
+function testVectorsIndependance(kwargs...)
+    M = hcat(kwargs...)
+    rk = rank(M)
+    if rk == size(M)[2]
+        return true
+    else
+        return false
     end
-        
-   
 end
+
+   
 
 
 end
