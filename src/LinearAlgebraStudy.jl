@@ -10,11 +10,13 @@ export drawVector, testVectorsIndependance, transformVectorBasis2D
 
 
 """
-    drawVector(V, origin = [0,0])
+    drawVector(f, V::Vector, origin::Vector = [0,0], xlim=(0,5), ylim=(0,5), title="Vector Plot", label = "Vector 1"))
 
     Draws a Vector V in the current plot at the origin.
 
     # Parameters
+    f: Plot function
+        plot or plot!
     V : Vector
         The vector to be drawn.
     origin : Origin Coordinate
@@ -29,11 +31,12 @@ export drawVector, testVectorsIndependance, transformVectorBasis2D
     using LinearAlgebraStudy
     V = Vector([1,2])
     origin = [0,0]
-    drawVector(V, origin)
+    drawVector(V, origin, (0,5), (0,5), "Vector Plot", "Vector 1")
     ```
 """
-function drawVector(V, origin = [0,0], xlim=5, ylim=5)
-    plot!([origin[1], V[1]+origin[1]], [origin[2], V[2]+origin[2]],  xlims = [0,xlim], ylims = [0,ylim], line=:arrow)
+function drawVector(f, V::Vector, origin::Vector = [0,0], xlim=(0,5), ylim=(0,5), title="Vector Plot", label = "Vector 1")
+
+    return f([origin[1], V[1] + origin[1]], [origin[2], V[2] + origin[2]],  xlims = xlim, ylims = ylim, line=:arrow, title = title, label = label)
 
 end
 
